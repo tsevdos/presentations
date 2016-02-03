@@ -1,0 +1,58 @@
+/**
+ * Default theme for reveal.js.
+ *
+ * Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+// Include theme-specific fonts
+@import url(http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,greek-ext,greek);
+
+// Background of the presentation
+$backgroundColor: #343434;
+
+// Primary/body text
+$mainFont: 'Ubuntu', sans-serif;
+$mainFontSize: 36px;
+$mainColor: #eee;
+
+// Headings
+$headingFont: 'Ubuntu', sans-serif;
+$headingColor: #eee;
+$headingLineHeight: 0.9em;
+$headingLetterSpacing: 0.02em;
+$headingTextTransform: uppercase;
+$headingTextShadow: 0px 0px 5px #e0fbfd;
+$heading1TextShadow: $headingTextShadow;
+
+// Links and actions
+$linkColor: #13DAEC;
+$linkColorHover: lighten( $linkColor, 20% );
+
+// Text selection
+$selectionBackgroundColor: #19bef6;
+$selectionColor: #fff;
+
+// Generates the presentation background, can be overridden
+// to return a background image or gradient
+@mixin bodyBackground() {
+	background: $backgroundColor;
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+
+// Re-writes
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 { margin:0 0 1em; text-transform:none; line-height:1.1em; }
+.reveal h1 { font-size:3.5em; }
+// .reveal h2 { font-size:2.5em; }
+.reveal ol, .reveal ul { margin:0; }
+.reveal ul { list-style-type:none; }
+.reveal ul li { list-style-type:none; background:url(../../../img/bullet_bg.png) 0 0.28em no-repeat; background-size:0.7em 0.7em; padding:0 0 0 1.5em; }

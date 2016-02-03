@@ -1,0 +1,1 @@
+UpNorth Conference (http://upnorthconf.gr/) took place at 1/12/2012 at Thessaloniki.

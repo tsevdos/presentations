@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>JoomlaDay - Responsive web design and touch devices</title>
+
+	<meta name="description" content="JoomlaDay - Responsive web design and touch devices">
+	<meta name="author" content="John Tsevdos">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="css/reveal.min.css">
+	<link rel="stylesheet" href="css/theme/source/joomladay.css" id="theme">
+
+	<!-- For syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+	<script>
+		document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+<body>
+<div class="reveal">
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+	<section>
+		<h1>Responsive Web Design and touch devices</h1>
+		<p>
+			<small>From <a href="http://phrappe.com">John Tsevdos</a> / <a href="http://twitter.com/tsevdos">@tsevdos</a></small>
+		</p>
+	</section>
+
+	<section>
+		<h2>agenda</h2>
+		<ul>
+			<li>adapt to touch devices</li>
+			<li>provide solutions</li>
+			<li>javascript touch frameworks</li>
+			<li>techniques, tips and tools</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>responsive web design principles</h2>
+		<ul>
+			<li>flexible layout/grid</li>
+			<li>media queries</li>
+			<li>flexible media (images, videos, etc.)</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>you can get there from here</h2>
+		<ul>
+			<li>interaction</li>
+			<li>UX</li>
+		</ul>
+	</section>
+
+	<section>
+		<section>
+			<h2>this is a "touch" world</h2>
+			<ul>
+				<li>fingers !== mouse pointer</li>
+				<li>different mediums</li>
+				<li>different use</li>
+			</ul>
+		</section>
+		<section>
+			<h2 style="margin:0 0 0.5em;">"traditional" web design might not work</h2>
+			<p>* at least out of the box</p>
+			<ul>
+				<li>navigation</li>
+				<li>call to action links</li>
+				<li>long forms/tables</li>
+				<li><code>:hover</code> and mouseover events</li>
+				<li>UI components </li>
+			</ul>
+		</section>
+		<section>
+			<h2>keep calm and :</h2>
+			<ul>
+				<li>simplify</li>
+				<li>follow the patterns (and the big players)</li>
+				<li>try to avoid functionality that doesn't really work on touch devices</li>
+			</ul>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2>navigation</h2>
+			<ul>
+				<li>do nothing approach (CSS)</li>
+				<li>select menu (js)</li>
+				<li>toggle menu (js)</li>
+				<li>left/right nav flyout (js)</li>
+				<li>footer only (css)</li>
+			</ul>
+		</section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2>navigation</h2>
+			<p><a href="http://bradfrostweb.com/blog/web/responsive-nav-patterns/">responsive navigation patterns</a></p>
+		</section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2 style="margin:0 0 0.5em;">navigation</h2>
+			<p>if you are too lazy to build your own custom navigation try the below links/resources</p>
+			<ul style="font-size:0.8em;">
+				<li>select menu : 
+					<ul>
+						<li><a href="https://github.com/mattkersley/Responsive-Menu">jQuery Responsive Menu Plugin</a></li>
+						<li><a href="http://tinynav.viljamis.com/">TinyNav.js</a></li>
+					</ul>
+				</li>
+				<li>toggle menu : 
+					<ul>
+						<li><a href="http://jasonweaver.name/lab/flexiblenavigation/">FLEXNAV</a></li>
+						<li><a href="http://www.jordanm.co.uk/lab/topdrawer">TOP DRAWER</a></li>
+					</ul>
+				</li>
+				<li>left/right nav flyout : 
+					<ul>
+						<li><a href="http://jpanelmenu.com/">jPanelMenu</a></li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2>call to action links</h2>
+			<ul>
+				<li>make larger click areas</li>
+				<li>add padding</li>
+			</ul>
+		</section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2 style="margin:0;">call to action links</h2>
+			<pre>
+				<code data-trim contenteditable>
+&lt;!-- Good --&gt;
+&lt;div&gt;
+  &lt;a href=&quot;url/path&quot;&gt;
+    &lt;img src=&quot;nice/image.jpg&quot; alt=&quot;nice image&quot; /&gt;
+    &lt;p&gt;This is a very nice image.&lt;/p&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;!-- Boring --&gt;
+&lt;div&gt;
+  &lt;div class=&quot;image&quot;&gt;
+    &lt;a href=&quot;url/path&quot;&gt;
+      &lt;img src=&quot;nice/image.jpg&quot; alt=&quot;nice image&quot; /&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p&gt;&lt;a href=&quot;url/path&quot;&gt;This is a very nice image.&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;url/path&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+				</code>
+			</pre>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2>forms</h2>
+			<ul>
+				<li>minimize form input</li>
+				<li>use the appropriate virtual keyboard</li>
+			</ul>
+		</section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2 style="margin:0;">forms</h2>
+			<pre>
+				<code data-trim contenteditable>
+&lt;!-- Default Keyboard --&gt;
+&lt;input type=&quot;text&quot; /&gt;
+ 
+&lt;!-- Numeric Keyboard --&gt;
+&lt;input type=&quot;number&quot; /&gt;
+ 
+&lt;!-- Number Keyboard --&gt;
+&lt;input type=&quot;tel&quot; /&gt;
+ 
+&lt;!-- URL Keyboard --&gt;
+&lt;input type=&quot;url&quot; /&gt;
+ 
+&lt;!-- e-mail Keyboard --&gt;
+&lt;input type=&quot;email&quot; /&gt;
+
+&lt;!-- Pattern Keyboard --&gt;
+&lt;input pattern=&quot;[0-9]*&quot; type=&quot;text&quot; /&gt;
+				</code>
+			</pre>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2>tables</h2>
+			<ul>
+				<li>try to avoid them</li>
+				<li><code>overflow:scroll</code></li>
+			</ul>
+		</section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2>tables</h2>
+			<p>native scroll inside elements (<a href="http://johanbrook.com/browsers/native-momentum-scrolling-ios-5/">source</a>)</p>
+			<pre>
+				<code data-trim contenteditable>
+overflow: scroll;
+-webkit-overflow-scrolling: touch; /* native like scroll */
+				</code>
+			</pre>
+		</section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2>tables</h2>
+			<ul>
+				<li><a href="http://zurb.com/playground/playground/responsive-tables/index.html">responsive tables</a> (Zurb.com)</li>
+				<li><a href="http://jquerymobile.com/demos/1.3.0-beta.1/docs/tables/table-reflow.html">reflow table mode</a> (jQuery Mobile)</li>
+				<li><a href="http://elvery.net/demo/responsive-tables/">responsive tables</a> (bootstrap plugin)</li>
+			</ul>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2><code>:hover</code> and mouseover events</h2>
+			<ul>
+				<li>try to avoid them</li>
+				<li>don't use them for displaying/perfoming critical inforation/tasks (for example tooltips and dropdown menus)</li>
+				<li>provide alternatives</li>
+			</ul>
+		</section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2><code>:hover</code> and mouseover events</h2>
+			<ul>
+				<li>no silver bullet for these</li>
+				<li>try to use similar touch events</li>
+			</ul>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2 style="opacity:0.7; margin:0;">adapt to touch :</h2>
+			<h2>UI components</h2>
+			<p>(like modals, image sliders, carousels, tabs, accordions etc.)</p>
+			<ul>
+				<li>do they enhance the experience or they just make things worst?</li>
+				<li>are they really working on touch devices?</li>
+				<li>do they respond to touch events?</li>
+			</ul>
+		</section>
+		<section>
+			<h2>use a javascript touch library</h2>
+			<ul>
+				<li>lean touch libraries</li>
+				<li>full touch libraries</li>
+			</ul>
+		</section>
+		<section>
+			<h2>lean touch libraries fetures</h2>
+			<ul>
+				<li>small footprint</li>
+				<li>easier to use</li>
+				<li>no UI components, just the touch events</li>
+				<li>excellent solutions for small/middle projects</li>
+			</ul>
+		</section>
+		<section>
+			<h2>lean libraries</h2>
+			<ul>
+				<li><a href="http://eightmedia.github.io/hammer.js/">Hammer.js</a></li>
+				<li><a href="http://quojs.tapquo.com/">QUO.js</a> (modular, works like jQuery)</li>
+			</ul>
+		</section>
+		<section>
+			<h2>full touch libraries fetures</h2>
+			<ul>
+				<li>large footprint</li>
+				<li>more complete solutions (provide UI components and widgets)</li>
+				<li>excellent solution for biggers projects/apps</li>
+			</ul>
+		</section>
+		<section>
+			<h2>full touch libraries</h2>
+			<ul>
+				<li><a href="http://jquerymobile.com/">jQuery mobile</a></li>
+				<li><a href="http://www.sencha.com/products/touch/">Sencha Touch</a></li>
+				<li><a href="http://jqtjs.com/">jQT</a></li>
+				<li><a href="http://www.iui-js.org/">iUI</a></li>
+			</ul>
+		</section>
+		<section>
+			<h2>best practice</h2>
+			<ul>
+				<li>start small, but if you really need something more complete, don't hesitate to use it!</li>
+				<li>always try to load only what you really need/use</li>
+			</ul>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2>when in doubt, check how the "big" players do it</h2>
+			<ul>
+				<li><a href="http://twitter.github.io/bootstrap/">Bootstrap</a></li>
+				<li><a href="http://foundation.zurb.com/">Foundation</a></li>
+				<li><a href="http://purecss.io/">Pure</a></li>
+			</ul>
+		</section>
+		<section>
+			<h2>follow the guidelines</h2>
+			<ul>
+				<li><a href="http://developer.android.com/guide/practices/ui_guidelines/index.html">Android User Interface Guidelines</a></li>
+				<li><a href="http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/MobileHIG/Introduction/Introduction.html">iOS Human Interface Guidelines</a></li>
+				<li>create your own!</li>
+			</ul>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2>touch devices can do more</h2>
+			<p>call or text</p>
+			<pre>
+				<code data-trim contenteditable>
+&lt;a href="tel:+306948123456"&gt;+306948123456&lt;/a&gt;
+&lt;a href="sms:+306948123456"&gt;+306948123456&lt;/a&gt;
+				</code>
+			</pre>
+		</section>
+		<section>
+			<h2>touch devices can do more</h2>
+	   		<p>capture images, video or sound using HTML forms</p>
+			<pre>
+				<code data-trim contenteditable>
+&lt;input type="file" accept="image;capture=camera" /&gt;
+&lt;input type="file" accept="video;capture=camcorder" /&gt;
+&lt;input type="file" accept="audio;capture=microphone" /&gt;
+				</code>
+			</pre>
+		</section>
+	</section>
+
+	<section>
+		<section>
+			<h2>be a pioneer</h2>
+			<ul>
+				<li>reward modern browser users
+					<ul>
+						<li>use HTML5 (elements, attributes	 etc.)</li>
+						<li>use CSS3 (gradients, shadows/text shadows, rgba, transitions, animations, fonts, etc.)</li>
+						<li>SVG</li>
+					</ul>
+				</li>
+				<li>add a feature detection and adaptation strategy (<a href="http://modernizr.com/">modernizr</a>)</li>
+			</ul>
+		</section>
+		<section>
+			<h2>be a pioneer</h2>
+			<ul>
+				<li><a href="http://diveintohtml5.info/geolocation.html">HTML5 geolocation API</a>
+				</li>
+				<li>use <a href="https://developer.mozilla.org/en-US/docs/IndexedDB">IndexedDB</a>, <a href="http://www.w3.org/TR/webdatabase/">Web SQL</a> or <a href="http://coding.smashingmagazine.com/2010/10/11/local-storage-and-how-to-use-it/">Local Storage</a> (or simply use a library like <a href="http://brian.io/lawnchair/">lawnchair</a>)
+				</li>
+				<li>graceful degradation<li>
+			</ul>
+		</section>
+	</section>
+
+	<section>
+		<h2>congratulations!</h2>
+		<ul>
+			<li>make it touch-friendly</li>
+			<li>enrich the UX on tablets/smartphones</li>
+		</ul>
+	</section>
+
+	<section>
+		<section>
+			<h2>thank you</h2>
+		</section>
+		<section>
+			<h2>questions ?</h2>
+			<img src="img/rwd.gif" alt="rwd developer">
+		</section>
+		<section>
+			<h2>I'm social...</h2>
+			<ul>
+				<li><a href="http://www.tsevdos.com">tsevdos.com</a></li>
+				<li><a href="http://phrappe.com">phrappe.com</a></li>
+				<li><a href="http://twitter.com/tsevdos">@tsevdos</a></li>
+				<li><a href="https://github.com/tsevdos">github.com/tsevdos</a></li>
+				<li><a href="http://www.linkedin.com/in/tsevdosjohn">linkedin.com/in/tsevdosjohn</a></li>
+			</ul>
+		</section>
+	</section>
+
+
+
+</div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+	// Full list of configuration options available here:
+	// https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
+
+		theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+		transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+		// Optional libraries used to extend on reveal.js
+		dependencies: [
+			{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+			{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+			{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+			{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+			// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+			// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+		]
+	});
+
+</script>
+</body>
+</html>
