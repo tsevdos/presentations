@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ES6 Backbone</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>ES6 Backbone</h1>
+					<h3>(and other happy thoughts)</h3>
+					<p>
+						<small>Created by <a href="http://phrappe.com/" target="_blank">John Tsevdos</a> / <a href="http://twitter.com/tsevdos" target="_blank">@tsevdos</a></small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Why do that?</h2>
+						<ul>
+							<li class="fragment">Prepare our codebase for the future</li>
+							<li class="fragment">Write cleaner code</li>
+							<li class="fragment">Write fatser</li>
+							<li class="fragment">ES6 2015 standard is 100% complete</li>
+						</ul>
+					</section>
+					<section>
+						<h2>A few ES6 features</h2>
+						<h3>Arrow functions</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							evens.map(v => v + 1);
+						</code></pre>
+						<h3>String interpolation</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+var name = "Bob", time = "today";
+console.log("Hello ${name}, how are you ${time}?");
+						</code></pre>
+					</section>
+					<section>
+						<h2>ES6 features</h2>
+						<h3>Classes</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+class SkinnedMesh extends THREE.Mesh {
+  constructor(geometry, materials) {
+    super(geometry, materials);
+
+    this.idMatrix = SkinnedMesh.defaultMatrix();
+    this.bones = [];
+    this.boneMatrices = [];
+    //...
+  }
+  update(camera) {
+    //...
+    super.update();
+  }
+  static defaultMatrix() {
+    return new THREE.Matrix4();
+  }
+}
+						</code></pre>
+					</section>
+					<section>
+						<h2>ES6 features</h2>
+						<h3>Modules</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+import * as math from "lib/math";
+import {sum, pi} from "lib/math";
+						</code></pre>
+						<h3>and more</h3>
+						<ul>
+							<li>Promises</li>
+							<li>and many more... <a href="https://babeljs.io/docs/learn-es2015/" target="_blank">See all ES2015 features</a></li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h2>Tooling</h2>
+						<ul>
+							<li>Babel (transpilers)</li>
+							<li>Webpack (module loader/bundler)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Babel</h2>
+						<p>Babel has support for the latest version of JavaScript through syntax transformers. These allow you to use new syntax, right now without waiting for browser support.</p>
+					</section>
+					<section>
+						<h2>Webpack</h2>
+						<p>Webpack takes modules with dependencies and generates static assets representing those modules. It supports AMD, CommonJs and ES6 module loaders.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Steps</h2>
+					<ul>
+						<li><a href="https://github.com/tsevdos/greek-in-tech/commit/ba0dc59fb023d10b816bf76cb12673ce4839a334" target="_target">Switch from Requirejs to Webpack (all vendor JS go to npm)</a></li>
+						<li><a href="https://github.com/tsevdos/greek-in-tech/commit/b14a90ce1860c3874e45cdc53f09e630bcff6494" target="_target">Remove bower config and dependencies</a></li>
+						<li><a href="https://github.com/tsevdos/greek-in-tech/commit/de805fb532134ef798d8b3ddec6c7313c6c65d36" target="_target">Add ES6 support</a></li>
+						<li><a href="https://github.com/tsevdos/greek-in-tech/commit/68faa8507884860c8a8aebace3d36e17b3f3b083" target="_target">Convert source code to ES6 2015</a></li>
+						<li><a href="https://github.com/tsevdos/greek-in-tech/commit/597a1901eeb702818a804d7a136f57d7cecd1a70" target="_target">Fix unit tests</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>THE END</h1>
+					<ul>
+						<li>Questions?</li>
+					</ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
