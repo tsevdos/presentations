@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>React and state management</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css"> <!-- moon / night -->
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <style type="text/css">
+      .reveal section img {
+        background: #fff;
+      }
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <section>
+            <h1>React and state management</h1>
+            <p>
+              <small>From <a href="http://phrappe.com">John Tsevdos</a> / <a href="http://twitter.com/tsevdos">@tsevdos</a></small>
+            </p>
+          </section>
+
+          <section>
+            <h2>Agenda</h2>
+            <ul>
+              <li>What is React</li>
+              <li>Why we need state management solution?</li>
+              <li>What is Mobx</li>
+              <li>Combining them</li>
+              <li>Best practises</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>React is the V in MVC</h2>
+            <ul>
+              <li>Provides an easy API to create web components</li>
+              <li>Renders efficiently (using Virtual DOM) these components</li>
+              <li>Handles two kinds of data: props / state</li>
+              <li>Lifecycle events (ex. componentDidMount)</li>
+              <li>Doesn't force you to a specific pattern or tool when it comes to data, but it favors <a href="https://facebook.github.io/flux/" target="_blank">Flux</a> architecture</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Why we need state management solution?</h2>
+            <h4>Things get chaotic quickly:</h4>
+            <ul>
+              <li>Components share state</li>
+              <li>State should be accessible from many different components</li>
+              <li>Components need to mutate the state</li>
+              <li>Components need to mutate the state of other components</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>The wrong way</h3>
+            <p>
+              <img src="data_flow2.svg" alt="flow" />
+            </p>
+          </section>
+
+          <section>
+            <h3>The right way</h3>
+            <p>
+              <img src="data_flow1.svg" alt="flow" />
+            </p>
+          </section>
+
+          <section>
+            <h2>Why Backbone Models are not ideal</h2>
+            <ul>
+              <li>It wasn't developed for this job</li>
+              <li>It doesn't provide a 2-way data binding or observer</li>
+              <li>When data changes / mutates can cause unnecessary component rendering</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Why use Mobx</h2>
+            <ul>
+              <li>It's simple and scalable</li>
+              <li>Uses vanilla Javascript for building your state (stores)</li>
+              <li>It does all the heavy lifting</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Mobx state management</h2>
+            <ul>
+              <li>Observable state</li>
+              <li>Computed values</li>
+              <li>Actions</li>
+              <li>Reactions</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Mobx flow</h2>
+            <p><img src="flow.png" alt="Mobx flow" /></p>
+          </section>
+
+          <section>
+            <h2>Mobx core concepts: Observable state</h2>
+            <h3>ES6</h3>
+            <pre><code>
+  class Todo {
+    id = Math.random();
+    @observable title = "";
+    @observable finished = false;
+  }
+            </code></pre>
+            <h3>ES5</h3>
+            <pre><code>
+  function Todo() {
+    this.id = Math.random();
+    extendObservable(this, {
+      title: "",
+      finished: false
+    });
+  }
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Mobx core concepts: Computed values</h2>
+            <pre><code>
+  class TodoList {
+    @observable todos = [];
+    @computed get unfinishedTodoCount() {
+      return this.todos.filter(todo => !todo.finished).length;
+    }
+  }
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Mobx core concepts: Actions</h2>
+            <pre><code>
+  store.todos.push(
+    new Todo("Get Coffee"),
+    new Todo("Improve Dashboard")
+  );
+            </code></pre>
+            <p>Unlike many flux frameworks, MobX is unopinionated about how user events should be handled.</p>
+          </section>
+
+          <section>
+            <h2>Mobx core concepts: Reactions</h2>
+            <pre><code>
+  import React, {Component} from "react";
+  import ReactDOM from "react-dom";
+  import {observer} from "mobx-react";
+
+  @observer
+  class TodoListView extends Component {
+    render() {
+      return (
+        <div>
+          <ul>
+            {this.props.todoList.todos.map(todo => <TodoView todo={todo} key={todo.id} />)}
+          </ul>
+          Tasks left: {this.props.todoList.unfinishedTodoCount}
+        </div>
+      )
+    }
+  }
+            </code></pre>
+            <p>Custom reactions can simply be created using the <a href="http://mobxjs.github.io/mobx/refguide/autorun.html" target="_blank">autorun</a>,
+              <a href="http://mobxjs.github.io/mobx/refguide/reaction.html" target="_blank">reaction</a> or
+              <a href="http://mobxjs.github.io/mobx/refguide/when.html" target="_blank">when</a> functions to fit your specific situations.</p>
+          </section>
+
+          <section>
+            <h2>Combining React and Mobx</h2>
+            <ul>
+              <li><a href="https://github.com/tsevdos/repocompare/blob/gh-pages/app/stores/models/Repo.js" target="_blank">Model</a></li>
+              <li><a href="https://github.com/tsevdos/repocompare/blob/gh-pages/app/stores/RepoStore.js" target="_blank">Store / Collection</a></li>
+              <li><a href="https://github.com/tsevdos/repocompare/blob/gh-pages/app/index.js" target="_blank">Provider</a></li>
+              <li><a href="https://github.com/tsevdos/repocompare/blob/gh-pages/app/containers/FormContainer.jsx" target="_blank">Component</a></li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>React best practices</h2>
+            <ul>
+              <li>Avoid component state (setState())</li>
+              <li>Centralize state</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Smart and dumb components</h2>
+            <ul>
+              <li>Containers components</li>
+              <li>Stateless (presentational) components</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Benefits</h2>
+            <ul>
+              <li>separation of concerns</li>
+              <li>reusability (provide the needed props to stateless components and it's working)</li>
+              <li>deal with the complexity in only one place</li>
+              <li>very designer-friendly</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Container and Stateless components examples</h2>
+            <ul>
+              <li><a href="https://github.com/tsevdos/repocompare/blob/gh-pages/app/containers/TableContainer.jsx" target="_blank">Container component</a></li>
+              <li><a href="https://github.com/tsevdos/repocompare/blob/gh-pages/app/components/App/Table.jsx" target="_blank">Stateless component</a></li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h2>that's all folks</h2>
+          <h3>Questions?</h3>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>
