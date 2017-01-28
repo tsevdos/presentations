@@ -53,7 +53,7 @@
 
         <section>
           <section>
-            <h2>React is the V in MVC</h2>
+            <h2>React <s>is the V in MVC</s></h2>
             <ul>
               <li>Provides an easy API to create web components</li>
               <li>Renders efficiently (using Virtual DOM) these components</li>
@@ -179,12 +179,12 @@
   class TodoListView extends Component {
     render() {
       return (
-        <div>
-          <ul>
-            {this.props.todoList.todos.map(todo => <TodoView todo={todo} key={todo.id} />)}
-          </ul>
+        &lt;div&gt;
+          &lt;ul&gt;
+            {this.props.todoList.todos.map(todo =&gt; &lt;TodoView todo={todo} key={todo.id} /&gt;)}
+          &lt;/ul&gt;
           Tasks left: {this.props.todoList.unfinishedTodoCount}
-        </div>
+        &lt;/div&gt;
       )
     }
   }
