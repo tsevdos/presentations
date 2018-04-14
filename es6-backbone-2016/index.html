@@ -14,18 +14,18 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-		<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal.js/css/reveal.css">
-		<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal.js/css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/css/reveal.css">
+		<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/css/theme/black.css" id="theme">
 
 		<!-- Code syntax highlighting -->
-		<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal.js/lib/css/zenburn.css">
+		<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/lib/css/zenburn.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'http://tsevdos.github.io/presentations/vendor/reveal.js/css/print/pdf.css' : 'http://tsevdos.github.io/presentations/vendor/reveal.js/css/print/paper.css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'http://tsevdos.github.io/presentations/vendor/reveal/css/print/pdf.css' : 'http://tsevdos.github.io/presentations/vendor/reveal/css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 	</head>
@@ -145,8 +145,8 @@ import {sum, pi} from "lib/math";
 
 		</div>
 
-		<script src="http://tsevdos.github.io/presentations/vendor/reveal.js/lib/js/head.min.js"></script>
-		<script src="http://tsevdos.github.io/presentations/vendor/reveal.js/js/reveal.js"></script>
+		<script src="http://tsevdos.github.io/presentations/vendor/reveal/lib/js/head.min.js"></script>
+		<script src="http://tsevdos.github.io/presentations/vendor/reveal/js/reveal.js"></script>
 
 		<script>
 			Reveal.initialize({
@@ -154,12 +154,12 @@ import {sum, pi} from "lib/math";
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
-					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal.js/plugin/zoom-js/zoom.js', async: true },
-					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal.js/plugin/notes/notes.js', async: true }
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/zoom-js/zoom.js', async: true },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/notes/notes.js', async: true }
 				]
 			});
 
