@@ -1,1 +1,0 @@
-This presentation was given at JoomlaDay 2013 (http://joomladay.gr/) - 15/6/2013. Athens - Greece

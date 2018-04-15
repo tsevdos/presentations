@@ -1,1 +1,0 @@
-This presentation was given at the 1st Joomlafrappe (http://joomlafrappe.gr/) conference at 12/3/2013. Athens - Greece

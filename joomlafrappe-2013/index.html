@@ -8,25 +8,22 @@
 	<meta name="description" content="Pragratic Responsive Web Design presentation">
 	<meta name="author" content="John Tsevdos">
 
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<link rel="stylesheet" href="css/reveal.min.css">
-	<link rel="stylesheet" href="css/theme/joomalfrappe.css" id="theme">
+	<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/css/reveal.css">
+	<link rel="stylesheet" href="joomalfrappe.css" id="theme">
 
 	<!-- For syntax highlighting -->
-	<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/lib/css/zenburn.css">
 
-	<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+	<!-- Printing and PDF exports -->
 	<script>
-		document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'http://tsevdos.github.io/presentations/vendor/reveal/css/print/pdf.css' : 'http://tsevdos.github.io/presentations/vendor/reveal/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</script>
-
-	<!--[if lt IE 9]>
-	<script src="lib/js/html5shiv.js"></script>
-	<![endif]-->
 </head>
 <body>
 <div class="reveal">
@@ -35,7 +32,7 @@
 <div class="slides">
 
 	<section>
-		<h1>Pragmatic Responsive Web Design</h1>
+		<h1>Pragmatic Responsive<br/> Web Design</h1>
 		<p>
 			<small>From <a href="http://phrappe.com">John Tsevdos</a> / <a href="http://twitter.com/tsevdos">@tsevdos</a></small>
 		</p>
@@ -138,7 +135,16 @@
 		</section>
 		<section>
 			<h2>Set your major and minor break points</h2>
-			<pre><code contenteditable>@media only screen and (min-width:480px) {<br/>}<br/>@media only screen and (min-width:768px) {<br/>}<br />@media only screen and (min-width:1024px) {<br/>}<br />@media only screen and (min-width:1200px) {<br/>}</code></pre>
+<pre><code contenteditable>
+@media only screen and (min-width:480px) {
+}
+@media only screen and (min-width:768px) {
+}
+@media only screen and (min-width:1024px) {
+}
+@media only screen and (min-width:1200px) {
+}
+</code></pre>
 		</section>
 		<section>
 			<h3>Question : does it make sense to create a break point (and make adjustments) for every known device?</h3>
@@ -152,11 +158,17 @@
 			<ul class="fragment">
 				<li>do the right math (target ÷ context = result)</li>
 			</ul>
-			<pre class="fragment"><code contenteditable>#container { width:100%; max-width:1200px; }<br/>#main { float:left; width:75%; } /* 900 / 1200 */<br/>#sidebar { float:right; width:25%; } /* 300 / 1200*/</code></pre>
+			<pre class="fragment"><code contenteditable>
+#container { width:100%; max-width:1200px; }
+#main { float:left; width:75%; } /* 900 / 1200 */
+#sidebar { float:right; width:25%; } /* 300 / 1200*/
+</code></pre>
 			<ul class="fragment">
 				<li>flexible margin / paddings</li>
 			</ul>
-			<pre class="fragment"><code contenteditable>#main { float:left; width:71.666666%; /* 860 / 1200 */ padding:1.666666%; /* 20 / 1200 */ }</code></pre>
+			<pre class="fragment"><code contenteditable>
+#main { float:left; width:71.666666%; /* 860 / 1200 */padding:1.666666%; /* 20 / 1200 */ }
+			</code></pre>
 			<ul class="fragment">
 				<li class="fragment">tip: use % for fonts as well</li>
 			</ul>
@@ -168,7 +180,11 @@
 				<li>same as above, but with ems</li>
 				<li>how much is 1em?</li>
 			</ul>
-			<pre class="fragment"><code contenteditable>1em = 100% from 16px = 16px<br/>1.5em = 150% from 16px = 24px<br/>0.5em = 50% from 16px = 8px</code></pre>
+			<pre class="fragment"><code contenteditable>
+1em = 100% from 16px = 16px
+1.5em = 150% from 16px = 24px
+0.5em = 50% from 16px = 8px
+			</code></pre>
 			<ul class="fragment">
 				<li>tip: use ems for fonts as well</li>
 			</ul>
@@ -225,7 +241,25 @@
 		<section>
 			<h2>Markup</h2>
 			<p>Easy mobile-friendly inputs</p>
-			<pre ><code contenteditable>&lt;!-- Default Keyboard --&gt;<br/>&lt;input type=&quot;text&quot; /&gt;<br/> <br/>&lt;!-- Numeric Keyboard --&gt;<br/>&lt;input type=&quot;number&quot; /&gt;<br/> <br/>&lt;!-- Pattern Keyboard --&gt;<br/>&lt;input pattern=&quot;[0-9]*&quot; type=&quot;text&quot; /&gt;<br/> <br/>&lt;!-- Number Keyboard --&gt;<br/>&lt;input type=&quot;tel&quot; /&gt;<br/> <br/>&lt;!-- URL Keyboard --&gt;<br/>&lt;input type=&quot;url&quot; /&gt;<br/> <br/>&lt;!-- e-mail Keyboard --&gt;<br/>&lt;input type=&quot;email&quot; /&gt;</code></pre>
+			<pre ><code contenteditable>
+&lt;!-- Default Keyboard --&gt;
+&lt;input type=&quot;text&quot; /&gt;
+
+&lt;!-- Numeric Keyboard --&gt;
+&lt;input type=&quot;number&quot; /&gt;
+
+&lt;!-- Pattern Keyboard --&gt;
+&lt;input pattern=&quot;[0-9]*&quot; type=&quot;text&quot; /&gt;
+
+&lt;!-- Number Keyboard --&gt;
+&lt;input type=&quot;tel&quot; /&gt;
+
+&lt;!-- URL Keyboard --&gt;
+&lt;input type=&quot;url&quot; /&gt;
+
+&lt;!-- e-mail Keyboard --&gt;
+&lt;input type=&quot;email&quot; /&gt;
+</code></pre>
 		</section>
 	</section>
 
@@ -335,36 +369,25 @@
 </div>
 </div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+<script src="http://tsevdos.github.io/presentations/vendor/reveal/lib/js/head.min.js"></script>
+<script src="http://tsevdos.github.io/presentations/vendor/reveal/js/reveal.js"></script>
 
-		<script>
+<script>
+	Reveal.initialize({
+	// More info about config & dependencies:
+	// - https://github.com/hakimel/reveal.js#configuration
+	// - https://github.com/hakimel/reveal.js#dependencies
+		dependencies: [
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/zoom-js/zoom.js', async: true },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/notes/notes.js', async: true }
+		]
+	});
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
-
-		</script>
+</script>
 
 	</body>
 </html>
