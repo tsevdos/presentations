@@ -8,23 +8,21 @@
 	<meta name="description" content="Pragratic Responsive Web Design">
 	<meta name="author" content="John Tsevdos">
 
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-	<link rel="stylesheet" href="css/reveal.min.css">
-	<link rel="stylesheet" href="css/theme/upnorth.css" id="theme">
+	<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/css/reveal.css">
+	<link rel="stylesheet" href="upnorth.css" id="theme">
 
 	<!-- For syntax highlighting -->
-	<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/lib/css/zenburn.css">
 
-	<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+	<!-- Printing and PDF exports -->
 	<script>
-		document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-	</script>
-
-	<!--[if lt IE 9]>
-	<script src="lib/js/html5shiv.js"></script>
-	<![endif]-->
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'http://tsevdos.github.io/presentations/vendor/reveal/css/print/pdf.css' : 'http://tsevdos.github.io/presentations/vendor/reveal/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
 </head>
 <body>
 <div class="reveal">
@@ -33,7 +31,7 @@
 <div class="slides">
 
 	<section>
-		<h1>Pragmatic Responsive Web Design</h1>
+		<h1>Pragmatic Responsive <br /> Web Design</h1>
 		<p>
 			<small>From <a href="http://phrappe.com">John Tsevdos</a> / <a href="http://twitter.com/tsevdos">@tsevdos</a></small>
 		</p>
@@ -144,10 +142,12 @@
 		</section>
 		<section>
 			<h2>set your major and minor break points</h2>
-			<ul>
-				<li class="fragment"><pre><code contenteditable>@media only screen and (min-width:480px) {}<br/>@media only screen and (min-width:768px) {}<br />@media only screen and (min-width:1024px) {}<br />@media only screen and (min-width:1200px) {}<br /></code></pre>
-				</li>
-			</ul>
+<pre class="fragment"><code contenteditable>
+@media only screen and (min-width:480px) {...}
+@media only screen and (min-width:768px) {...}
+@media only screen and (min-width:1024px) {...}
+@media only screen and (min-width:1200px) {...}
+</code></pre>
 		</section>
 		<section>
 			<h3>question : does it make sense to create a break point (and make adjustments) for every known device?</h3>
@@ -161,11 +161,17 @@
 			<ul>
 				<li class="fragment">do the right math (target ÷ context = result)</li>
 				<li class="fragment">
-					<pre><code contenteditable>#container { width:100%; max-width:1200px; }<br/>#main { float:left; width:75%; } /* 900 / 1200 */<br/>#sidebar { float:right; width:25%; } /* 300 / 1200*/</code></pre>
+<pre><code contenteditable>
+#container { width:100%; max-width:1200px; }
+#main { float:left; width:75%; } /* 900 / 1200 */
+#sidebar { float:right; width:25%; } /* 300 / 1200*/
+</code></pre>
 				</li>
 				<li class="fragment">flexible margin / paddings</li>
 				<li class="fragment">
-					<pre><code contenteditable>#main { float:left; width:71.666666%; /* 860 / 1200 */ padding:1.666666%; /* 20 / 1200 */ }</code></pre>
+<pre><code contenteditable>
+#main { float:left; width:71.666666%; /* 860 / 1200 */ padding:1.666666%; /* 20 / 1200 */ }
+</code></pre>
 				</li>
 				<li class="fragment">tip: use % for fonts as well</li>
 			</ul>
@@ -176,7 +182,12 @@
 			<ul>
 				<li class="fragment">same as above, but with ems</li>
 				<li class="fragment">how much is 1em?</li>
-				<li class="fragment"><pre><code contenteditable>1em = 100% from 16px = 16px<br/>1.5em = 150% from 16px = 24px<br/>0.5em = 50% from 16px = 8px</code></pre></li>
+				<li class="fragment">
+<pre><code contenteditable>
+1em = 100% from 16px = 16px
+1.5em = 150% from 16px = 24px
+0.5em = 50% from 16px = 8px
+</code></pre></li>
 				<li class="fragment">tip: use ems for fonts as well</li>
 			</ul>
 		</section>
@@ -338,34 +349,26 @@
 	</section>
 
 </div>
-
 </div>
 
-<script src="lib/js/head.min.js"></script>
-<script src="js/reveal.min.js"></script>
+<script src="http://tsevdos.github.io/presentations/vendor/reveal/lib/js/head.min.js"></script>
+<script src="http://tsevdos.github.io/presentations/vendor/reveal/js/reveal.js"></script>
+
 <script>
-	// Full list of configuration options available here:
-	// https://github.com/hakimel/reveal.js#configuration
 	Reveal.initialize({
-		controls: true,
-		progress: true,
-		history: true,
-		center: true,
-
-		theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-		transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
-
-		// Optional libraries used to extend on reveal.js
+	// More info about config & dependencies:
+	// - https://github.com/hakimel/reveal.js#configuration
+	// - https://github.com/hakimel/reveal.js#dependencies
 		dependencies: [
-			{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-			{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-			{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-			{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-			// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/zoom-js/zoom.js', async: true },
+			{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/notes/notes.js', async: true }
 		]
 	});
+
 </script>
 
 </body>
