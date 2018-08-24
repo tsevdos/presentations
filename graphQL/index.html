@@ -1,0 +1,696 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GraphQL 101</title>
+
+    <link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/css/reveal.css">
+    <link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/css/theme/black.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="http://tsevdos.github.io/presentations/vendor/reveal/lib/css/zenburn.css">
+
+    <style>
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+      text-transform: none;
+    }
+    .reveal section img {
+      border: 0;
+    }
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+
+          <section>
+            <h1>GraphQL 101</h1>
+            <p>
+            <small>From <a href="http://tsevdos.me/">John Tsevdos</a> / <a href="http://twitter.com/tsevdos">@tsevdos</a></small>
+            </p>
+          </section>
+
+          <section>
+            <h2>Agenda</h2>
+            <ul>
+              <li>what is graphQL</li>
+              <li>graphQL fundamentals</li>
+              <li>differences with REST</li>
+              <li>graphQL schema and types</li>
+              <li>advantages and disadvantages</li>
+            </ul>
+          </section>
+          <section>
+            <h2>I'm not a graphQL expert</h2>
+            <p>I recently used/consumed Github's graphQL API for a personal project and I'm just sharing what I learned</p>
+          </section>
+
+        </section>
+
+        <section>
+          <h2>What is graphQL</h2>
+          <ul>
+            <li>graphQL is a new API specification (standard)</li>
+            <li>graphQL is language / framework agnostic</li>
+            <li>a query language for APIs</li>
+            <li>enables declarative data fetching</li>
+            <li>a more efficient, powerful and flexible alternative to REST</li>
+            <li>created by Facebook (2012)</li>
+            <li>production ready (Github, Facebook, Netflix, etc.)</li>
+          </ul>
+        </section>
+
+        <section>
+
+          <section>
+            <h2>An example</h2>
+            <img src="blog_example.png" alt="blog example" />
+          </section>
+
+          <section>
+            <h2>REST implementation: 3 API endpoints</h2>
+            <ul>
+              <li>/users/&lt;id&gt;</li>
+              <li>/users/&lt;id&gt;/posts</li>
+              <li>/users/&lt;id&gt;/followers</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>REST: User response</h2>
+<pre><code>
+{
+  "id": 123,
+  "firstname": "John",
+  "lastname": "Tsevdos",
+  "age": 36,
+  "address": { ... },
+  "hobbies": ["movies", "football"],
+  "isOlympiacos": true,
+  ...
+}
+</code></pre>
+          </section>
+
+          <section>
+            <h2>REST: Posts response</h2>
+<pre><code>
+{
+  "posts": [
+    {
+      "id": 1234,
+      "date": "2018-03-25 12:40",
+      "title": "My title",
+      "body": "Great post!",
+      "comments": [...]
+    },
+    ...
+  ]
+}
+</code></pre>
+          </section>
+
+          <section>
+            <h2>REST: Followers response</h2>
+<pre><code>
+{
+  "followers": [
+    {
+      "id": 123,
+      "firstname": "George",
+      "lastname": "Papadopoulos",
+      "age": 36,
+      "address": { ... },
+      "hobbies": ["football"]
+    }
+    ...
+  ]
+}
+</code></pre>
+          </section>
+
+          <section>
+            <h2>REST: Client requests</h2>
+            <img style="width: 80%" src="rest.png" alt="Rest API" />
+          </section>
+
+          <section>
+            <h2>REST implementation is:</h2>
+            <ul>
+              <li>overfetching: downloading unnecessary data</li>
+              <li>underfetching: an endpoint doesn’t return enough of the right information</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>GraphQL request</h2>
+<pre><code>
+query {
+  User(id: 1234) {
+    name
+    posts {
+      title
+    }
+    followers(last: 3) {
+      name
+    }
+  }
+}
+</code></pre>
+          </section>
+
+          <section>
+            <h2>GraphQL response</h2>
+<pre><code>
+{
+  "data": {
+    "User": {
+      "name": "John",
+      "posts": [
+        {
+          "title": "My sexy title"
+        }
+        ...
+      ],
+      "followers": [
+        {
+          "name": "George",
+          "name": "Panos",
+          "name": "Nikos"
+        }
+      ]
+    }
+  }
+}
+</code></pre>
+          </section>
+
+          <section>
+            <h2>GraphQL is better</h2>
+            <img src="graphQL.png" alt="graphQL API" />
+          </section>
+
+          <section>
+            <h2>Better than REST</h2>
+            <ul>
+              <li>no more over and under fetching</li>
+              <li>client-oriented API</li>
+              <li>schema &amp; type system</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>GraphQL:</h2>
+            <ul>
+              <li>has a single endpoint</li>
+              <li>uses only the POST HTTP verb</li>
+            </ul>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Schema Definition Language (SDL): Types</h2>
+<pre><code>
+type Person {
+  name: String!
+  age: Int!
+}
+
+type Post {
+  title: String!
+}
+</code></pre>
+<p><small>The ! following the type means that this field is required.</small></p>
+          </section>
+
+          <section>
+            <h2>Schema Definition Language (SDL): Relationships</h2>
+<pre><code>
+type Person {
+  name: String!
+  age: Int!
+  posts: [Post!]!
+}
+
+type Post {
+  title: String!
+  author: Person!
+}
+</code></pre>
+<p><small>One to many relationship</small></p>
+          </section>
+
+          <section>
+            <h2>Fetching data: Queries</h2>
+<pre><code>
+{
+  allPersons {
+    name
+    age
+  }
+}
+</code></pre>
+            <p><small>The allPersons field in this query is called the <strong>root type</strong> of the query. Everything that follows the root type, is called the <strong>payload</strong> of the query.</small></p>
+          </section>
+
+          <section>
+              <h2>Fetching data: Response</h2>
+<pre><code>
+{
+  "data": {
+    "allPersons": [
+      {
+        "name": "John",
+        "age": 19
+      },
+      {
+        "name": "George",
+        "age": 25
+      },
+      {
+        "name": "Bill",
+        "age": 30
+      }
+      ...
+    ]
+  }
+}
+</code></pre>
+            </section>
+
+            <section>
+              <h2>Fetching data: Queries and nested information</h2>
+<pre><code>
+{
+  allPersons {
+    name
+    age
+    posts {
+      title
+    }
+  }
+}
+</code></pre>
+            </section>
+
+            <section>
+              <h2>Fetching data: Response</h2>
+<pre><code>
+{
+  "data": {
+    "allPersons": [
+      {
+        "name": "John",
+        "age": 19,
+        "posts": [
+          {
+            "title": "GraphQL 101"
+          },
+          {
+            "title": "React tips"
+          }
+        ]
+      },
+      {
+        "name": "George",
+        "age": 25,
+        "posts": [
+          {
+            "title": "REST is dead."
+          }
+        ]
+      }
+      ...
+    ]
+  }
+}
+</code></pre>
+            </section>
+
+            <section>
+              <h2>Fetching data: Queries with arguments</h2>
+<pre><code>
+{
+  allPersons(last: 2) {
+    name
+    age
+  }
+}
+</code></pre>
+            </section>
+
+            <section>
+              <h2>Fetching data: Response</h2>
+<pre><code>
+{
+  "data": {
+    "allPersons": [
+      {
+        "name": "John",
+        "age": 19
+      },
+      {
+        "name": "George",
+        "age": 25
+      }
+    ]
+  }
+}
+</code></pre>
+            </section>
+
+        </section>
+
+        <section>
+
+          <section>
+            <h2>Mutations</h2>
+            <ul>
+              <li>creating new data</li>
+              <li>updating existing data</li>
+              <li>deleting existing data</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Mutations: Create data</h2>
+<pre><code>
+mutation {
+  createPerson(name: "John", age: 36) {
+    name
+    age
+  }
+}
+
+// Response
+{
+  "data": {
+    "createPerson": {
+      "name": "John",
+      "age": 36
+    }
+  }
+}
+</code></pre>
+          </section>
+
+          <section>
+            <h2>Mutations: Create data</h2>
+<pre><code>
+mutation {
+  createPerson(name: "John", age: 36) {
+    id
+  }
+}
+
+// Response
+{
+  "data": {
+    "createPerson": {
+      "id": 12345
+    }
+  }
+}
+</code></pre>
+          </section>
+
+          <section>
+            <h2>Subscriptions</h2>
+            <ul>
+              <li>realtime updates</li>
+              <li>client subscribes to an event, it will initiate and hold a steady connection to the server</li>
+              <li>subscriptions represent a stream of data</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Subscriptions example</h2>
+<pre><code>
+subscription {
+  newPerson {
+    name
+    age
+  }
+}
+
+// Response
+{
+  "data": {
+    "newPerson": {
+      "name": "Jane",
+      "age": 23
+    }
+}
+</code></pre>
+          </section>
+
+        </section>
+
+      <section>
+
+        <section>
+          <h2>Defining a schema</h2>
+          <ul>
+            <li>defines the capabilities of the API</li>
+            <li>defines how clients can fetch and update data</li>
+            <li>contract between the server and client</li>
+            <li>is a collection of graphQL types with special root types</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Defining a schema</h2>
+          <ul>
+            <li>query, mutation, and subscription types are the entry points for the requests</li>
+            <li>example of the above allPersons-query</li>
+          </ul>
+          <pre><code>
+type Query { ... }
+type Mutation { ... }
+type Subscription { ... }
+
+// Example
+type Query {
+  allPersons: [Person!]!
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Defining a schema</h2>
+          <ul>
+            <li><code>allPersons</code> is called a root type of the API</li>
+            <li><code>last</code> argument to the <code>allPersons</code> field</li>
+          </ul>
+<pre><code>
+type Query {
+  allPersons(last: Int): [Person!]!
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Defining a schema</h2>
+          <ul>
+            <li>Mutation (<code>createPerson</code>) example</li>
+          </ul>
+<pre><code>
+type Mutation {
+  createPerson(name: String!, age: Int!): Person!
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Defining a schema</h2>
+          <ul>
+            <li>Subscription (<code>newPerson</code>) example</li>
+          </ul>
+<pre><code>
+type Subscription {
+  newPerson: Person!
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Our entire schema so far</h2>
+<pre><code>
+type Query {
+  allPersons(last: Int): [Person!]!
+}
+
+type Mutation {
+  createPerson(name: String!, age: Int!): Person!
+}
+
+type Subscription {
+  newPerson: Person!
+}
+
+type Person {
+  name: String!
+  age: Int!
+  posts: [Post!]!
+}
+
+type Post {
+  title: String!
+  author: Person!
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>A more realistic schema</h2>
+<pre><code>
+type Query {
+  allPersons(last: Int): [Person!]!
+  allPosts(last: Int): [Post!]!
+}
+
+type Mutation {
+  createPerson(name: String!, age: Int!): Person!
+  updatePerson(id: ID!, name: String!, age: Int!): Person!
+  deletePerson(id: ID!): Person!
+
+  createPost(title: String!): Post!
+  updatePost(id: ID!, title: String!): Post!
+  deletePost(id: ID!): Post!
+}
+</code></pre>
+        </section>
+
+      </section>
+
+      <section>
+
+        <section>
+          <h2>Architecture</h2>
+          <p>GraphQL is just a <a href="http://facebook.github.io/graphql/October2016/" target="_blank">specification</a></p>
+          <ul>
+            <li>graphQL server with a connected database</li>
+            <li>graphQL server to integrate existing system</li>
+            <li>a hybrib approach with a connected database and integration of existing system</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>GraphQL server with a connected database</h2>
+          <ul>
+            <li>ideal for new projects</li>
+            <li>graphQL web server connected with SQL/NoSQL database(s)</li>
+          </ul>
+          <img src="architecture1.png" alt="GraphQL server with a connected database" />
+        </section>
+
+        <section>
+          <h2>GraphQL layer that integrates existing systems</h2>
+          <ul>
+            <li>ideal for companies with legacy infrastructures and many different APIs</li>
+            <li>graphQL can be used to unify existing systems and hide complexity of data</li>
+            <li>web server doesn't care about what datasources are (databases, web services, 3rd party APIs, etc.)</li>
+          </ul>
+        </section>
+
+        <section>
+          <img width="90%" src="architecture2.png" alt="GraphQL layer that integrates existing systems" />
+        </section>
+
+        <section>
+          <h2>Hybrid approach</h2>
+          <ul>
+            <li>GraphQL web server with connected database and integration of existing systems</li>
+          </ul>
+        </section>
+
+        <section>
+          <img width="70%" src="architecture3.png" alt="Hybrid approach" />
+        </section>
+
+      </section>
+
+        <section>
+
+          <section>
+            <h2>Advantages</h2>
+            <ul>
+              <li>strongly typed schema</li>
+              <li>no more overfetching and underfetching</li>
+              <li>support for real-time data</li>
+              <li>can be added gradually to an existing service</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Disadvantages</h2>
+            <ul>
+              <li>server-side complexity</li>
+              <li>caching</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Github GraphQL API example</h2>
+            <ul>
+              <li><a href="https://developer.github.com/v4/explorer/" target="_blank">GitHub GraphQL API explorer</a></li>
+            </ul>
+          </section>
+
+        </section>
+
+        <section>
+
+          <section>
+            <h2>Resources</h2>
+            <ul>
+              <li><a href="https://www.howtographql.com/" target="_blank">How to GraphQL tutorial</a></li>
+              <li><a href="http://graphql.org/" target="_blank">GraphQL.org</a></li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>That's all folks</h2>
+            <h3>Questions?</h3>
+          </section>
+
+        </section>
+
+      </div>
+    </div>
+
+    <script src="http://tsevdos.github.io/presentations/vendor/reveal/lib/js/head.min.js"></script>
+    <script src="http://tsevdos.github.io/presentations/vendor/reveal/js/reveal.js"></script>
+
+    <script>
+      Reveal.initialize({
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/zoom-js/zoom.js', async: true },
+					{ src: 'http://tsevdos.github.io/presentations/vendor/reveal/plugin/notes/notes.js', async: true }
+				]
+			});
+    </script>
+  </body>
+</html>
